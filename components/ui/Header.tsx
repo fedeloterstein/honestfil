@@ -4,9 +4,9 @@ import { WalletIcon } from '../icons'
 
 export const Header = () => {
   return (
-    <HStack justifyContent={'space-between'} p={5}>
-        <Stack>
-            <Heading fontWeight={700} fontSize={'30px'} lineHeight={'38px'} color={'#4C4C66'}>Dashboard FIL Reserves</Heading>
+    <HStack justifyContent={'space-between'} p={5} w={'100%'}>
+        <Stack >
+            <Heading  fontWeight={700} fontSize={'30px'} lineHeight={'38px'} color={'#4C4C66'}>Dashboard FIL Reserves</Heading>
             <Text fontWeight={400} fontSize={'13px'} lineHeight={'16px'} color={'#6F6C99'} >Real-time data of the reserves of Filecoin on decentralized finance (DeFi) protocols or dapps.</Text>
         </Stack>
         <HStack>

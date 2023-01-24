@@ -5,8 +5,7 @@ import { AlertsSections, BalanceCard, CreateAlertSection, FileCoinCard, Header, 
 
 export const Dashboard = () => {
   return (
-    <>
-      <Header />
+    <Stack>
       <HStack p={5}>
         <Stack>
           <HStack>
@@ -21,7 +20,6 @@ export const Dashboard = () => {
           <SubmitNewPoRSection />
         </Stack>
       </HStack>
-
-    </>
+    </Stack>
   )
 }
