@@ -1,6 +1,6 @@
 import { Avatar, Heading, HStack, Select, Stack, Table, TableCaption, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { ArrowDownIcon, ExpandDownIcon, ExpandIcon } from '../icons'
+import { ArrowDownIcon, BoxIcon, ExpandDownIcon, ExpandIcon } from '../icons'
 
 export const TrendingTable = () => {
     const [protocolSelect, setprotocolSelect] = useState(undefined)
@@ -9,7 +9,7 @@ export const TrendingTable = () => {
         <Stack width={'736px'}>
             <HStack mb={'26px'}>
                 <Heading fontWeight={600} fontSize={'22px'} lineHeight={'33px'} color={'#5E5E75'} mr='32px'>🔥 Trending</Heading>
-                <Select placeholder='All types' width={'130px'}>
+                <Select placeholder='All types' width={'130px'} border={'1px'} borderColor='#12C99D' >
                     <option value='option1'>Option 1</option>
                     <option value='option2'>Option 2</option>
                     <option value='option3'>Option 3</option>
@@ -91,7 +91,7 @@ const RowDetail = () => {
             <Td fontWeight={600} fontSize={'12px'} lineHeight={'20px'} color={'#53D258'}>
             0xd6d9e702c8...
             </Td>
-            <Td>4</Td>
+            <Td><BoxIcon /></Td>
         </Tr>
     )
 }

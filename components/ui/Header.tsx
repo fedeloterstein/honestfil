@@ -1,6 +1,6 @@
-import { Button, Heading, HStack, Stack, Text } from '@chakra-ui/react'
+import { Button, Heading, HStack, Stack, Text, Link } from '@chakra-ui/react'
 import React from 'react'
-import { WalletIcon } from '../icons'
+import { UnionIcon, WalletIcon } from '../icons'
 
 export const Header = () => {
   return (
@@ -10,6 +10,7 @@ export const Header = () => {
             <Text fontWeight={400} fontSize={'13px'} lineHeight={'16px'} color={'#6F6C99'} >Real-time data of the reserves of Filecoin on decentralized finance (DeFi) protocols or dapps.</Text>
         </Stack>
         <HStack>
+            <Button bgGradient={'linear(to-r, #FF409A, #C438EF)'} width={'48px'} height={'28px'} borderRadius={'50px'}><UnionIcon /></Button>
             <Button leftIcon={<WalletIcon />} bgGradient={'linear(to-r, #127FC9, #12C99D)'} borderRadius={'50px'} p={'0px 20px'} color={'white'} boxShadow={'0px 4px 20px 0px rgba(0, 0, 0, 0.25)'}>Connect Wallet</Button>
         </HStack>
     </HStack>
