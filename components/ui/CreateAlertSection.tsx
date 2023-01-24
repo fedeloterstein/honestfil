@@ -1,6 +1,6 @@
 import { Button, Divider, HStack, Input, Select, Stack, Switch, Tag, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { UnionIcon } from '../icons'
+import { DeleteIcon, EditIcon, UnionIcon } from '../icons'
 
 export const CreateAlertSection = () => {
     const [alertType, setalertType] = useState('createAlert')
@@ -42,7 +42,11 @@ const MyAlerts = () => {
         <>
             <HStack width={'100%'} justify={'space-between'} p={4}>
                 <Tag height={'43px'} color='white' borderRadius={'50px'} minWidth={'106px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>CrossFi</Tag>
+                <HStack gap={1}>
+                <EditIcon />
+                <DeleteIcon />
                 <Switch size='md' />
+                </HStack>
             </HStack>
         </>
 

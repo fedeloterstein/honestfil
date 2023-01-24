@@ -1,11 +1,14 @@
-import { Heading, HStack, Select, Stack, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
-import React from 'react'
+import { Avatar, Heading, HStack, Select, Stack, Table, TableCaption, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
+import React, { useState } from 'react'
+import { ArrowDownIcon, ExpandDownIcon, ExpandIcon } from '../icons'
 
 export const TrendingTable = () => {
+    const [protocolSelect, setprotocolSelect] = useState(undefined)
+
     return (
         <Stack width={'736px'}>
-            <HStack>
-                <Heading>🔥 Trending</Heading>
+            <HStack mb={'26px'}>
+                <Heading fontWeight={600} fontSize={'22px'} lineHeight={'33px'} color={'#5E5E75'} mr='32px'>🔥 Trending</Heading>
                 <Select placeholder='All types' width={'130px'}>
                     <option value='option1'>Option 1</option>
                     <option value='option2'>Option 2</option>
@@ -17,47 +20,79 @@ export const TrendingTable = () => {
                     <TableCaption>Imperial to metric conversion factors</TableCaption>
                     <Thead>
                         <Tr>
-                            <Th>Protocol</Th>
-                            <Th>FIL Total Reserves</Th>
-                            <Th>24H Change</Th>
-                            <Th>Vaults Audits</Th>
+                            <Th fontWeight={400} fontSize={'12px'} lineHeight={'20px'} color={'#A9A9A9'}>Protocol</Th>
+                            <Th fontWeight={400} fontSize={'12px'} lineHeight={'20px'} color={'#A9A9A9'}>FIL Total Reserves</Th>
+                            <Th fontWeight={400} fontSize={'12px'} lineHeight={'20px'} color={'#A9A9A9'}>24H Change</Th>
+                            <Th fontWeight={400} fontSize={'12px'} lineHeight={'20px'} color={'#A9A9A9'}>Vaults Audits</Th>
+                            <Th></Th>
                         </Tr>
                     </Thead>
-                    <Tbody>
-                        <Tr>
-                            <Td>AAVE</Td>
-                            <Td>$41.263,00</Td>
-                            <Td>+35%</Td>
-                            <Td>4</Td>
-                        </Tr>
-                        <Tr>
-                            <Td>AAVE</Td>
-                            <Td>$41.263,00</Td>
-                            <Td>+35%</Td>
-                            <Td>4</Td>
-                        </Tr>
-                        <Tr>
-                            <Td>AAVE</Td>
-                            <Td>$41.263,00</Td>
-                            <Td>+35%</Td>
-                            <Td>4</Td>
-                        </Tr>
-                        <Tr>
-                            <Td>AAVE</Td>
-                            <Td>$41.263,00</Td>
-                            <Td>+35%</Td>
-                            <Td>4</Td>
-                        </Tr>
-                        <Tr>
-                            <Td>AAVE</Td>
-                            <Td>$41.263,00</Td>
-                            <Td>+35%</Td>
-                            <Td>4</Td>
-                        </Tr>
-                    </Tbody>
+                    {protocolSelect == undefined ? (
+                        <Tbody>
+                            <RowTable setprotocolSelect={setprotocolSelect} protocolSelect={protocolSelect} />
+                            <RowTable setprotocolSelect={setprotocolSelect}  protocolSelect={protocolSelect} />
+                            <RowTable setprotocolSelect={setprotocolSelect}  protocolSelect={protocolSelect} />
+                            <RowTable setprotocolSelect={setprotocolSelect}  protocolSelect={protocolSelect} />
+                            <RowTable setprotocolSelect={setprotocolSelect}  protocolSelect={protocolSelect} />
+                        </Tbody>
+                    ) : (
+                        <Tbody>
+                            <RowTable setprotocolSelect={setprotocolSelect}  protocolSelect={protocolSelect} />
+                            <RowDetail />
+                            <RowDetail />
+                            <RowDetail />
+                            <RowDetail />
+                        </Tbody>
+                    )}
+
                 </Table>
             </TableContainer>
         </Stack>
     )
 }
 
+const RowTable = ({ setprotocolSelect, protocolSelect }: any) => {
+    return (
+        <Tr>
+            <Td>
+                <HStack>
+                    <Avatar size={'24px'} src='https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579' />
+                    <Text fontWeight={600} fontSize={'14px'} lineHeight={'22px'}>BNB</Text>
+                </HStack>
+            </Td>
+            <Td>
+                <Text fontWeight={600} fontSize={'14px'} lineHeight={'22px'}>$41.263,00</Text>
+            </Td>
+            <Td>
+                <HStack>
+                    <ArrowDownIcon />
+                    <Text fontWeight={600} fontSize={'12px'} lineHeight={'20px'} color={'#F46565'}>+35,74%</Text>
+                </HStack>
+            </Td>
+            <Td>4</Td>
+            <Td>
+                <>
+                {protocolSelect === undefined ? (   <ExpandIcon onClick={() => setprotocolSelect('btc')} />) : (  <ExpandDownIcon onClick={() => setprotocolSelect(undefined)} />)}
+                {console.log(protocolSelect)}
+                </>
+               
+                </Td>
+                
+        </Tr>
+    )
+}
+
+const RowDetail = () => {
+    return (
+        <Tr>
+            <Td fontWeight={600} fontSize={'14px'} lineHeight={'22px'}>Vault #1</Td>
+            <Td fontWeight={600} fontSize={'14px'} lineHeight={'22px'}>
+                $41.263,00
+            </Td>
+            <Td fontWeight={600} fontSize={'12px'} lineHeight={'20px'} color={'#53D258'}>
+            0xd6d9e702c8...
+            </Td>
+            <Td>4</Td>
+        </Tr>
+    )
+}
