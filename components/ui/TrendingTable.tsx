@@ -73,7 +73,6 @@ const RowTable = ({ setprotocolSelect, protocolSelect }: any) => {
             <Td>
                 <>
                 {protocolSelect === undefined ? (   <ExpandIcon onClick={() => setprotocolSelect('btc')} />) : (  <ExpandDownIcon onClick={() => setprotocolSelect(undefined)} />)}
-                {console.log(protocolSelect)}
                 </>
                
                 </Td>
