@@ -4,7 +4,7 @@ import { ArrowUp, FilIcon, VectorIcon } from '../icons'
 
 export const FileCoinCard = () => {
     return (
-        <Stack bgGradient={'linear(to-r, rgba(0, 0, 0, 0.8), rgba(0, 86, 180, 0.8))'} width={'270px'} minHeight={'158px'} borderRadius={'20px'} padding={'20px'} justify={'space-between'} align={'start'}>
+        <Stack bgGradient={'linear(to-r, rgba(0, 0, 0, 0.8), rgba(0, 86, 180, 0.8))'} width={'270px'} minHeight={'158px'} borderRadius={'20px'} padding={'20px'} justify={'space-between'} align={'start'} boxShadow={'0px 4px 20px 0px rgba(189, 236, 241, 0.5)'}>
             <HStack w={'100%'} justify='space-between'>
                 <HStack>
                     <FilIcon />

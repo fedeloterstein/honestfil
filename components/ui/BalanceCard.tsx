@@ -4,7 +4,7 @@ import { ArrowDownIcon, FilIcon, VectorIcon, WalletCircleIcon } from '../icons'
 
 export const BalanceCard = () => {
     return (
-        <Stack bgGradient={'linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))'} width={'270px'} minHeight={'158px'} borderRadius={'20px'} padding={'20px'} justify={'space-between'} align={'start'}>
+        <Stack bgGradient={'linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))'} width={'270px'} minHeight={'158px'} borderRadius={'20px'} padding={'20px'} justify={'space-between'} align={'start'} boxShadow={'0px 4px 20px 0px rgba(189, 236, 241, 0.5)'}>
             <HStack w={'100%'} justify='space-between'>
                 <HStack>
                 <WalletCircleIcon />
