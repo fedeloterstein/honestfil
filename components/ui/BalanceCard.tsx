@@ -4,10 +4,12 @@ import { ArrowDownIcon, FilIcon, VectorIcon, WalletCircleIcon } from '../icons'
 
 export const BalanceCard = () => {
     return (
-        <Stack bgGradient={'linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))'} width={'270px'} minHeight={'158px'} borderRadius={'20px'} padding={'16px'}>
-            <HStack>
+        <Stack bgGradient={'linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))'} width={'270px'} minHeight={'158px'} borderRadius={'20px'} padding={'20px'} justify={'space-between'} align={'start'}>
+            <HStack w={'100%'} justify='space-between'>
+                <HStack>
                 <WalletCircleIcon />
                 <Text fontWeight={600} fontSize={'14px'} color={'white'}>Your Balance FIL</Text>
+                </HStack>
                <VectorIcon />
             </HStack>
             <Text fontWeight={600} fontSize={'18px'} lineHeight={'26px'} color={'white'}>$40,000</Text>
@@ -20,7 +22,6 @@ export const BalanceCard = () => {
            <FilIcon /> 
            <Text fontWeight={600} fontSize={'12px'} lineHeight={'17px'} color={'white'}>27.88%</Text>
            </HStack>
-            
         </Stack>
     )
 }

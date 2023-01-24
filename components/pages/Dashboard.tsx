@@ -1,6 +1,6 @@
 import { HStack, Stack } from '@chakra-ui/react'
 import React from 'react'
-import { AlertsSections, BalanceCard, CreateAlertSection, Header, SubmitNewPoRSection, TrendingTable } from '../ui'
+import { AlertsSections, BalanceCard, CreateAlertSection, FileCoinCard, Header, SubmitNewPoRSection, TrendingTable } from '../ui'
 
 
 export const Dashboard = () => {
@@ -11,7 +11,7 @@ export const Dashboard = () => {
         <Stack>
           <HStack>
             <BalanceCard />
-            <BalanceCard />
+            <FileCoinCard />
           </HStack>
           <TrendingTable />
           <AlertsSections />
