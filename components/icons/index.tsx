@@ -1,2 +1,6 @@
 export * from './PlusIcon'
 export * from './WalletIcon'
+export * from './WalletCircleIcon'
+export * from './VectorIcon'
+export * from './ArrowDownIcon'
+export * from './FilIcon'
