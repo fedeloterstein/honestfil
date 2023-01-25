@@ -6,16 +6,16 @@ import { FavotitesSection, BalanceCard, CreateAlertSection, FileCoinCard, Header
 export const Dashboard = () => {
   return (
     <Stack>
-      <HStack p={5}>
+      <HStack pt={'38px'} align={'flex-start'}>
         <Stack>
-          <HStack>
+          <HStack pb={'24px'} gap={'35px'}>
             <BalanceCard />
             <FileCoinCard />
           </HStack>
           <TrendingTable />
           <FavotitesSection />
         </Stack>
-        <Stack>
+        <Stack gap={'28px'} pl={'16px'}>
           <CreateAlertSection />
           <SubmitNewPoRSection />
         </Stack>

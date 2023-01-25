@@ -4,14 +4,11 @@ import { AlertIcon, PlusIcon } from '../icons'
 
 export const FavotitesSection = () => {
   return (
-    <Stack display={'flex'}>
+    <Stack display={'flex'} pt={'29px'}>
       <Heading fontWeight={600} fontSize={'22px'} lineHeight={'33px'} mb={'23px'}>❤️ Favorites</Heading>
       <SimpleGrid columns={2} spacing={'5'}>
         <NewFavoriteCardButton />
         <NewFavoriteCard />
-        <NewFavoriteCard />
-        <NewFavoriteCard />
-
       </SimpleGrid>
     </Stack>
   )
