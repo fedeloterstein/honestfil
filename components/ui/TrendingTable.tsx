@@ -15,9 +15,8 @@ export const TrendingTable = () => {
                     <option value='option3'>Option 3</option>
                 </Select>
             </HStack>
-            <TableContainer>
+            <TableContainer maxWidth={'736px'} minHeight='300px' boxShadow={'0px 4px 20px 0px rgba(189, 236, 241, 0.5)'} p='29px' borderRadius={'20px'}>
                 <Table variant='simple'>
-                    <TableCaption>Imperial to metric conversion factors</TableCaption>
                     <Thead>
                         <Tr>
                             <Th fontWeight={400} fontSize={'12px'} lineHeight={'20px'} color={'#A9A9A9'}>Protocol</Th>
