@@ -35,6 +35,9 @@ import {
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import { DashboardIcon, HonestfilLogo } from '../icons';
+import { useAccount } from 'wagmi';
+import { useRouter } from 'next/router';
+import { Landing } from '../pages';
 
 interface LinkItemProps {
   name: string;
@@ -52,6 +55,9 @@ export default function Layout({
   header: ReactNode;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isConnected } = useAccount()
+
+
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
@@ -73,7 +79,7 @@ export default function Layout({
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} header={header} />
       <Box bg={'white'} ml={{ base: 0, md: 60 }} p="4">
-        {children}
+        { !isConnected ? (<Landing />) :  children}
       </Box>
     </Box>
   );
