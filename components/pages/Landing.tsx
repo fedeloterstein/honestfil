@@ -1,4 +1,5 @@
 import { Box, Button, HStack, Stack, Text } from '@chakra-ui/react'
+import Image from 'next/image'
 import React from 'react'
 import { LandingIlustrationOne, LandingIlustrationTwo, WalletIcon } from '../icons'
 import { ConnectButton } from '../ui'
@@ -11,12 +12,12 @@ export const Landing = () => {
                     <SectionOne />
                 </Box>
                 <Box w={'50%'}>
-                    <LandingIlustrationOne />
+                <Image src={'/LandingIlustrationOne.png'} alt={'algo'} width="508" height="341" />
                 </Box>
             </HStack>
             <HStack gap={'82px'}>
                 <Box w={'50%'}>
-                    <LandingIlustrationTwo />
+                <Image src={'/LandingIlustrationTwo.png'} alt={'algo'} width="418" height="271" />
                 </Box>
                 <Box w={'50%'}>
                     <SectionFour />
