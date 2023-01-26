@@ -1,12 +1,17 @@
 import { Button, Heading, HStack, Stack, Text, Link } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import React from 'react'
+import { useAccount } from 'wagmi'
 import { UnionIcon, WalletIcon } from '../icons'
 
 export const Header = () => {
-  const [loging, setgoding] = useState(false)
-  if (!loging) return (
+
+  const { openConnectModal } = useConnectModal();
+  const { isConnected } = useAccount()
+
+  if (!isConnected) return (
     <HStack justifyContent={'flex-end'} p={5} w={'100%'}>
-      <Button leftIcon={<WalletIcon />} bgGradient={'linear(to-r, #127FC9, #12C99D)'} borderRadius={'50px'} p={'0px 20px'} color={'white'} boxShadow={'0px 4px 20px 0px rgba(0, 0, 0, 0.25)'}>Connect Wallet</Button>
+      <Button onClick={openConnectModal} leftIcon={<WalletIcon />} bgGradient={'linear(to-r, #127FC9, #12C99D)'} borderRadius={'50px'} p={'0px 20px'} color={'white'} boxShadow={'0px 4px 20px 0px rgba(0, 0, 0, 0.25)'}>Connect Wallet</Button>
     </HStack>
   )
   return (
