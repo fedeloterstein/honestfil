@@ -3,6 +3,7 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React from 'react'
 import { useAccount } from 'wagmi'
 import { UnionIcon, WalletIcon } from '../icons'
+import { ConnectButton } from './ConnectButton'
 
 export const Header = () => {
 
@@ -11,7 +12,7 @@ export const Header = () => {
 
   if (!isConnected) return (
     <HStack justifyContent={'flex-end'} p={5} w={'100%'}>
-      <Button onClick={openConnectModal} leftIcon={<WalletIcon />} bgGradient={'linear(to-r, #127FC9, #12C99D)'} borderRadius={'50px'} p={'0px 20px'} color={'white'} boxShadow={'0px 4px 20px 0px rgba(0, 0, 0, 0.25)'}>Connect Wallet</Button>
+      <ConnectButton />
     </HStack>
   )
   return (
@@ -22,7 +23,7 @@ export const Header = () => {
       </Stack>
       <HStack>
         <Button bgGradient={'linear(to-r, #FF409A, #C438EF)'} width={'48px'} height={'28px'} borderRadius={'50px'} boxShadow={'0px 5px 34px 0px rgba(186, 19, 88, 0.42)'}><UnionIcon /></Button>
-        <Button leftIcon={<WalletIcon />} bgGradient={'linear(to-r, #127FC9, #12C99D)'} borderRadius={'50px'} p={'0px 20px'} color={'white'} boxShadow={'0px 4px 20px 0px rgba(0, 0, 0, 0.25)'}>Connect Wallet</Button>
+        <ConnectButton />
       </HStack>
     </HStack>
   )
