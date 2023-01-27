@@ -13,7 +13,7 @@ export const FavotitesSection = () => {
       <Heading fontWeight={600} fontSize={'22px'} lineHeight={'33px'} mb={'23px'}>❤️ Favorites</Heading>
       <SimpleGrid columns={2} spacing={'5'}>
         <NewFavoriteCardButton />
-        {data
+        {data && data
           .filter((fav: any) => fav.isFavorite === true)
           .map((alert: any) => (<NewFavoriteCard key={alert.id.toNumber()} alert={alert}/>))}
       </SimpleGrid>
