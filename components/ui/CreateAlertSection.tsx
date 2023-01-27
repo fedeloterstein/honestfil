@@ -69,7 +69,7 @@ const CreateAlert = () => {
                 <Text fontWeight={600} fontSize={'18px'} color={'#000000'}>$13,119,031</Text>
             </Stack>
             <Select height={'48px'} borderRadius={'50px'} placeholder='Add Protocol or Dapp' onChange={(e) => setprotocolName(e.target.value)}>
-                {listProtocols && listProtocols.map((lp: any) =>  <option value={lp.name}>{lp.name}</option>
+                {listProtocols && listProtocols.map((lp: any) =>  <option value={lp.name} key={lp.id}>{lp.name}</option>
                 )}
                
             </Select>
@@ -99,7 +99,7 @@ const MyAlerts = () => {
     return (
         <>
             {data && data.map((alert: any) => (
-                <HStack width={'100%'} justify={'space-between'}>
+                <HStack width={'100%'} justify={'space-between'} key={alert.id}>
                     <Tag height={'43px'} color='white' borderRadius={'50px'} minWidth={'106px'} p={'0px 20px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>{alert.protocolName}</Tag>
                     <HStack gap={1}>
                         <EditIcon />
