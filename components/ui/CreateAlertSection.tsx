@@ -1,7 +1,12 @@
 import { Button, Divider, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Switch, Tag, Text, useDisclosure } from '@chakra-ui/react'
 import Image from 'next/image'
 import React, { useState } from 'react'
+import { useContractEvent, useContractRead, useContractWrite } from 'wagmi'
 import { DeleteIcon, EditIcon, SuccessAlertIcon, UnionIcon } from '../icons'
+import contractAbi from '../../contract/abi.json'
+import { usePausedAlert } from '@/hooks/usePausedAlert'
+import { useGetAlerts } from '@/hooks/useGetAlerts'
+import { useGetProtocols } from '@/hooks/useGetProtocols'
 
 export const CreateAlertSection = () => {
     const [alertType, setalertType] = useState('createAlert')
@@ -19,11 +24,33 @@ export const CreateAlertSection = () => {
 
 const CreateAlert = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [protocolName, setprotocolName] = useState('Protocolo Test')
+    const [protocolMinReserve, setprotocolMinReserve] = useState(1000000)
+
+    const {data: listProtocols} = useGetProtocols()
+
+    const { write } = useContractWrite({
+        mode: 'recklesslyUnprepared',
+        address: '0xBdd8100726E4649D7ef665318280dfC555b9920f',
+        abi: contractAbi.abi,
+        functionName: 'createAlert',
+        args: [protocolName, protocolMinReserve],
+    })
+
+
+    useContractEvent({
+        address: '0xBdd8100726E4649D7ef665318280dfC555b9920f',
+        abi: contractAbi.abi,
+        eventName: 'AlertCreated',
+        listener(_id, _protocolName, _minReserve, _owner) {
+            onOpen()
+        },
+    })
 
     return (
         <>
             <Modal onClose={onClose} isOpen={isOpen} isCentered>
-                <ModalOverlay bg={'rgba(225, 225, 225, 0.9)'}/>
+                <ModalOverlay bg={'rgba(225, 225, 225, 0.9)'} />
                 <ModalContent maxH={'321px'} maxWidth={'509px'} borderRadius={'20px'} boxShadow={'0px 4px 20px 0px rgba(189, 236, 241, 0.5)'}>
                     <ModalBody width={'100%'}>
                         <Stack align={'center'}>
@@ -41,31 +68,46 @@ const CreateAlert = () => {
                 <Text fontWeight={400} fontSize={'14px'} color={'#A9A9A9'}>Filecoin Reserve</Text>
                 <Text fontWeight={600} fontSize={'18px'} color={'#000000'}>$13,119,031</Text>
             </Stack>
-            <Select height={'48px'} borderRadius={'50px'} placeholder='Add Protocol or Dapp'></Select>
+            <Select height={'48px'} borderRadius={'50px'} placeholder='Add Protocol or Dapp' onChange={(e) => setprotocolName(e.target.value)}>
+                {listProtocols && listProtocols.map((lp: any) =>  <option value={lp.name}>{lp.name}</option>
+                )}
+               
+            </Select>
             <HStack justify={'start'} width='100%'>
                 <Tag height={'43px'} color='white' borderRadius={'50px'} minWidth={'106px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>CrossFi</Tag>
                 <Tag height={'43px'} color='white' borderRadius={'50px'} minWidth={'106px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>CrossFi</Tag>
             </HStack>
             <HStack width={'100%'} height={'48px'} border='2px' borderRadius={'50px'} borderColor='rgba(18, 201, 157, 1)' justify={'space-between'} padding={'13px 19px'}>
                 <Text fontWeight={600} fontSize={'14px'} lineHeight={'22px'}>FIL Reserve Min</Text>
-                <Input border={'none'} placeholder='$10,000,00' width={'40%'} />
+                <Input onChange={(e) => setprotocolMinReserve(Number(e.target.value))} border={'none'} placeholder='$10,000,00' width={'40%'} />
             </HStack>
-            <Button onClick={onOpen} leftIcon={<UnionIcon />} bgGradient={'linear(to-r, #127FC9, #12C99D)'} width={'100%'} borderRadius={'50px'} p={'0px 20px'} color={'white'}>Create Alert</Button>
+            <Button onClick={() => write?.()} leftIcon={<UnionIcon />} bgGradient={'linear(to-r, #127FC9, #12C99D)'} width={'100%'} borderRadius={'50px'} p={'0px 20px'} color={'white'}>Create Alert</Button>
         </>
     )
 }
 
+
+
+
 const MyAlerts = () => {
+
+
+    const { data } = useGetAlerts()
+    const { write: pausedAlert } = usePausedAlert();
+
+
     return (
         <>
-            <HStack width={'100%'} justify={'space-between'} p={4}>
-                <Tag height={'43px'} color='white' borderRadius={'50px'} minWidth={'106px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>CrossFi</Tag>
-                <HStack gap={1}>
-                    <EditIcon />
-                    <DeleteIcon />
-                    <Switch size='md' />
+            {data && data.map((alert: any) => (
+                <HStack width={'100%'} justify={'space-between'}>
+                    <Tag height={'43px'} color='white' borderRadius={'50px'} minWidth={'106px'} p={'0px 20px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>{alert.protocolName}</Tag>
+                    <HStack gap={1}>
+                        <EditIcon />
+                        <DeleteIcon />
+                        <Switch onChange={() => pausedAlert?.(alert.id)} size='md' defaultChecked={alert.isActive} />
+                    </HStack>
                 </HStack>
-            </HStack>
+            ))}
         </>
 
 
