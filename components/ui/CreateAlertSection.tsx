@@ -1,12 +1,13 @@
-import { Button, Divider, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Switch, Tag, Text, useDisclosure } from '@chakra-ui/react'
+import { Button, Divider, HStack, IconButton, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Switch, Tag, Text, useDisclosure } from '@chakra-ui/react'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useContractEvent, useContractRead, useContractWrite } from 'wagmi'
-import { DeleteIcon, EditIcon, SuccessAlertIcon, UnionIcon } from '../icons'
+import { DeleteIcon, EditIcon, HeartFull, HeartNull, SuccessAlertIcon, UnionIcon } from '../icons'
 import contractAbi from '../../contract/abi.json'
 import { usePausedAlert } from '@/hooks/usePausedAlert'
 import { useGetAlerts } from '@/hooks/useGetAlerts'
 import { useGetProtocols } from '@/hooks/useGetProtocols'
+import { useIsFavorite } from '@/hooks/useIsFavorite'
 
 export const CreateAlertSection = () => {
     const [alertType, setalertType] = useState('createAlert')
@@ -27,11 +28,11 @@ const CreateAlert = () => {
     const [protocolName, setprotocolName] = useState('Protocolo Test')
     const [protocolMinReserve, setprotocolMinReserve] = useState(1000000)
 
-    const {data: listProtocols} = useGetProtocols()
+    const { data: listProtocols } = useGetProtocols()
 
     const { write } = useContractWrite({
         mode: 'recklesslyUnprepared',
-        address: '0xBdd8100726E4649D7ef665318280dfC555b9920f',
+        address: '0xDdA45f2CEC52B1a1f2c4AC987530b2734381fA19',
         abi: contractAbi.abi,
         functionName: 'createAlert',
         args: [protocolName, protocolMinReserve],
@@ -39,7 +40,7 @@ const CreateAlert = () => {
 
 
     useContractEvent({
-        address: '0xBdd8100726E4649D7ef665318280dfC555b9920f',
+        address: '0xDdA45f2CEC52B1a1f2c4AC987530b2734381fA19',
         abi: contractAbi.abi,
         eventName: 'AlertCreated',
         listener(_id, _protocolName, _minReserve, _owner) {
@@ -69,13 +70,12 @@ const CreateAlert = () => {
                 <Text fontWeight={600} fontSize={'18px'} color={'#000000'}>$13,119,031</Text>
             </Stack>
             <Select height={'48px'} borderRadius={'50px'} placeholder='Add Protocol or Dapp' onChange={(e) => setprotocolName(e.target.value)}>
-                {listProtocols && listProtocols.map((lp: any) =>  <option value={lp.name} key={lp.id}>{lp.name}</option>
+                {listProtocols && listProtocols.map((lp: any) => <option value={lp.name} key={lp.id}>{lp.name}</option>
                 )}
-               
+
             </Select>
             <HStack justify={'start'} width='100%'>
-                <Tag height={'43px'} color='white' borderRadius={'50px'} minWidth={'106px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>CrossFi</Tag>
-                <Tag height={'43px'} color='white' borderRadius={'50px'} minWidth={'106px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>CrossFi</Tag>
+                {protocolName && <Tag height={'43px'} color='white' borderRadius={'50px'} minWidth={'106px'} padding={'0px 20px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>{protocolName}</Tag>}
             </HStack>
             <HStack width={'100%'} height={'48px'} border='2px' borderRadius={'50px'} borderColor='rgba(18, 201, 157, 1)' justify={'space-between'} padding={'13px 19px'}>
                 <Text fontWeight={600} fontSize={'14px'} lineHeight={'22px'}>FIL Reserve Min</Text>
@@ -94,14 +94,22 @@ const MyAlerts = () => {
 
     const { data } = useGetAlerts()
     const { write: pausedAlert } = usePausedAlert();
+    const [alertSlect, setalertSlect] = useState()
 
+    const { write: isFavoriteAlert } = useIsFavorite(alertSlect)
+
+   useEffect(() => {
+    isFavoriteAlert?.()
+   }, [alertSlect])
+   
 
     return (
         <>
             {data && data.map((alert: any) => (
-                <HStack width={'100%'} justify={'space-between'} key={alert.id}>
+                <HStack width={'100%'} justify={'space-between'} key={alert.id.toNumber()}>
                     <Tag height={'43px'} color='white' borderRadius={'50px'} minWidth={'106px'} p={'0px 20px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>{alert.protocolName}</Tag>
                     <HStack gap={1}>
+                        <IconButton onClick={() => setalertSlect(alert.id.toNumber())} aria-label='favorite' icon={!alert.isFavorite ? <HeartNull /> : <HeartFull />} variant={'ghost'} />
                         <EditIcon />
                         <DeleteIcon />
                         <Switch onChange={() => pausedAlert?.(alert.id)} size='md' defaultChecked={alert.isActive} />
