@@ -8,14 +8,17 @@ import contractAbi from '../../contract/abi.json'
 
 export const SubmitNewPoRSection = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [name, setname] = useState('')
-
+    const [name, setname] = useState('Protocolo Test')
+    const [category, setcategory] = useState('protocol')
+    const [urlLogo, seturlLogo] = useState('https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579')
+    const [addressVault, setaddressVault] = useState('0x57d08d9426570A17b0d754A780Fb6Eac7A056E4b')
+    const [urlWebsite, seturlWebsite] = useState('www.testprotocol1.com')
     const { write } = useContractWrite({
         mode: 'recklesslyUnprepared',
         address: '0x59acAD016c5562Ac4c9478b4cccB37217478F382',
         abi: contractAbi.abi,
         functionName: 'registerProtocol',
-        args: [name, 'defi', 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579', '0x57d08d9426570A17b0d754A780Fb6Eac7A056E4b', 'www.testprotocol1.com'],
+        args: [name, category, urlLogo, addressVault, urlWebsite],
     })
 
 
@@ -49,10 +52,15 @@ export const SubmitNewPoRSection = () => {
             <Stack width={'387px'} minHeight={'382px'} align={'center'} borderRadius={'20px'} padding={'18px 20px'} justify={'space-around'} boxShadow={'0px 4px 20px 0px rgba(189, 236, 241, 0.5)'} gap={'14px'}>
                 <Text fontWeight={600} fontSize={'16px'} lineHeight={'24px'} bgClip='text' bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))'>Submit New Proof of Reserve</Text>
                 <Input onChange={(e) => setname(e.target.value)} height={'48px'} borderRadius={'50px'} placeholder='Name Protocol or Dapp*' />
-                <Select height={'48px'} borderRadius={'50px'} placeholder='Category*' />
-                <Input height={'48px'} borderRadius={'50px'} placeholder='Url Logo*' />
-                <Input height={'48px'} borderRadius={'50px'} placeholder='Address Vault*' />
-                <Input height={'48px'} borderRadius={'50px'} placeholder='Website*' />
+                <Select onChange={(e) => setcategory(e.target.value)} height={'48px'} borderRadius={'50px'} placeholder='Category*'>
+                    <option value='dex'>Dex</option>
+                    <option value='cex'>Cex</option>
+                    <option value='dapp'>Dapp</option>
+                    <option value='protocol'>Protocol</option>
+                </Select>
+                <Input onChange={(e) => seturlLogo(e.target.value)} height={'48px'} borderRadius={'50px'} placeholder='Url Logo*' />
+                <Input onChange={(e) => setaddressVault(e.target.value)} height={'48px'} borderRadius={'50px'} placeholder='Address Vault*' />
+                <Input onChange={(e) => seturlWebsite(e.target.value)} height={'48px'} borderRadius={'50px'} placeholder='Website*' />
                 <Button onClick={() => write?.()} leftIcon={<PlusWhiteIcon />} bgGradient={'linear(to-r, #127FC9, #12C99D)'} width={'100%'} borderRadius={'50px'} p={'0px 20px'} color={'white'}>Submit Proof Reserve</Button>
             </Stack>
         </>

@@ -12,6 +12,9 @@ export const TrendingTable = () => {
         abi: contractAbi.abi,
         functionName: 'getProtocols',
       })
+
+      console.log('data: ', data);
+      
     
     return (
         <Stack width={'736px'}>
@@ -59,7 +62,7 @@ const RowTable = ({ setprotocolSelect, protocolSelect, data }: any) => {
         <Tr>
             <Td>
                 <HStack>
-                    <Avatar size={'24px'} src='https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579' />
+                    <Avatar size={'24px'} src={data?.[2]} width={'24px'} height={'24px'} />
                     <Text fontWeight={600} fontSize={'14px'} lineHeight={'22px'}>{data?.name}</Text>
                 </HStack>
             </Td>
