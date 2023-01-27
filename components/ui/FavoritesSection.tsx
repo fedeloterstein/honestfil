@@ -5,15 +5,17 @@ import { AlertIcon, PlusIcon } from '../icons'
 
 export const FavotitesSection = () => {
 
-  const { data } = useGetAlerts()
-  console.log('ff', data.filter((fav: any) => fav.isFavorite === false));
+  const { data, isLoading, isError } = useGetAlerts()
 
+  if (isLoading || isError ) return null
   return (
     <Stack display={'flex'} pt={'29px'}>
       <Heading fontWeight={600} fontSize={'22px'} lineHeight={'33px'} mb={'23px'}>❤️ Favorites</Heading>
       <SimpleGrid columns={2} spacing={'5'}>
         <NewFavoriteCardButton />
-     
+        {data && data
+          .filter((fav: any) => fav.isFavorite === true)
+          .map((alert: any) => (<NewFavoriteCard key={alert.id.toNumber()} alert={alert}/>))}
       </SimpleGrid>
     </Stack>
   )

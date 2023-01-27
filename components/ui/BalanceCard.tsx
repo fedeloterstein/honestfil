@@ -8,7 +8,7 @@ export const BalanceCard = () => {
     const { data, isError, isLoading } = useBalance({
         address: address
       })
-console.log(data?.formatted);
+
 
     if (isLoading || isError || !isConnected) return <Skeleton startColor='gba(0, 0, 0, 0.8)' endColor='rgba(0, 86, 180, 0.8)'  width={'270px'} minHeight={'158px'} borderRadius={'20px'} padding={'20px'}  boxShadow={'0px 4px 20px 0px rgba(189, 236, 241, 0.5)'} />
     return (
