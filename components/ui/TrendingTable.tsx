@@ -8,7 +8,7 @@ export const TrendingTable = () => {
     const [protocolSelect, setprotocolSelect] = useState(undefined)
 
     const { data, isError, isLoading }: any = useContractRead({
-        address: '0x59acAD016c5562Ac4c9478b4cccB37217478F382',
+        address: '0xBdd8100726E4649D7ef665318280dfC555b9920f',
         abi: contractAbi.abi,
         functionName: 'getProtocols',
       })
