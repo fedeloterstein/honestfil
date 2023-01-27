@@ -1,10 +1,18 @@
-import { Avatar, Heading, HStack, Select, Stack, Table, TableCaption, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
+import { Avatar, Heading, HStack, Select, Stack, Table, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { ArrowDownIcon, BoxIcon, ExpandDownIcon, ExpandIcon } from '../icons'
+import contractAbi from '../../contract/abi.json'
+import { useContractRead } from 'wagmi'
 
 export const TrendingTable = () => {
     const [protocolSelect, setprotocolSelect] = useState(undefined)
 
+    const { data, isError, isLoading }: any = useContractRead({
+        address: '0x59acAD016c5562Ac4c9478b4cccB37217478F382',
+        abi: contractAbi.abi,
+        functionName: 'getProtocols',
+      })
+    
     return (
         <Stack width={'736px'}>
             <HStack mb={'26px'}>
@@ -28,11 +36,7 @@ export const TrendingTable = () => {
                     </Thead>
                     {protocolSelect == undefined ? (
                         <Tbody>
-                            <RowTable setprotocolSelect={setprotocolSelect} protocolSelect={protocolSelect} />
-                            <RowTable setprotocolSelect={setprotocolSelect}  protocolSelect={protocolSelect} />
-                            <RowTable setprotocolSelect={setprotocolSelect}  protocolSelect={protocolSelect} />
-                            <RowTable setprotocolSelect={setprotocolSelect}  protocolSelect={protocolSelect} />
-                            <RowTable setprotocolSelect={setprotocolSelect}  protocolSelect={protocolSelect} />
+                            {data && data.map((d: any)=>    <RowTable key={d.id} setprotocolSelect={setprotocolSelect} protocolSelect={protocolSelect} data={d} />)}
                         </Tbody>
                     ) : (
                         <Tbody>
@@ -50,13 +54,13 @@ export const TrendingTable = () => {
     )
 }
 
-const RowTable = ({ setprotocolSelect, protocolSelect }: any) => {
+const RowTable = ({ setprotocolSelect, protocolSelect, data }: any) => {
     return (
         <Tr>
             <Td>
                 <HStack>
                     <Avatar size={'24px'} src='https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579' />
-                    <Text fontWeight={600} fontSize={'14px'} lineHeight={'22px'}>BNB</Text>
+                    <Text fontWeight={600} fontSize={'14px'} lineHeight={'22px'}>{data?.name}</Text>
                 </HStack>
             </Td>
             <Td>
