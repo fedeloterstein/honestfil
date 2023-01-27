@@ -15,7 +15,7 @@ export const SubmitNewPoRSection = () => {
     const [urlWebsite, seturlWebsite] = useState('www.testprotocol1.com')
     const { write } = useContractWrite({
         mode: 'recklesslyUnprepared',
-        address: '0xBdd8100726E4649D7ef665318280dfC555b9920f',
+        address: '0xDdA45f2CEC52B1a1f2c4AC987530b2734381fA19',
         abi: contractAbi.abi,
         functionName: 'registerProtocol',
         args: [name, category, urlLogo, addressVault, urlWebsite],
@@ -23,7 +23,7 @@ export const SubmitNewPoRSection = () => {
 
 
     useContractEvent({
-        address: '0xBdd8100726E4649D7ef665318280dfC555b9920f',
+        address: '0xDdA45f2CEC52B1a1f2c4AC987530b2734381fA19',
         abi: contractAbi.abi,
         eventName: 'NewProtocol',
         listener(_id, _name, _owner) {

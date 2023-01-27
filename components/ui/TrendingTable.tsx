@@ -8,7 +8,7 @@ export const TrendingTable = () => {
     const [protocolSelect, setprotocolSelect] = useState(undefined)
 
     const { data, isError, isLoading }: any = useContractRead({
-        address: '0xBdd8100726E4649D7ef665318280dfC555b9920f',
+        address: '0xDdA45f2CEC52B1a1f2c4AC987530b2734381fA19',
         abi: contractAbi.abi,
         functionName: 'getProtocols',
       })
@@ -21,9 +21,10 @@ export const TrendingTable = () => {
             <HStack mb={'26px'}>
                 <Heading fontWeight={600} fontSize={'22px'} lineHeight={'33px'} color={'#5E5E75'} mr='32px'>🔥 Trending</Heading>
                 <Select placeholder='All types' width={'130px'} border={'1px'} borderColor='#12C99D' >
-                    <option value='option1'>Option 1</option>
-                    <option value='option2'>Option 2</option>
-                    <option value='option3'>Option 3</option>
+                    <option value='dex'>Dex</option>
+                    <option value='cex'>Cex</option>
+                    <option value='dapp'>Dapp</option>
+                    <option value='protocol'>Protocol</option>
                 </Select>
             </HStack>
             <TableContainer maxWidth={'736px'} minHeight='300px' boxShadow={'0px 4px 20px 0px rgba(189, 236, 241, 0.5)'} p='29px' borderRadius={'20px'}>

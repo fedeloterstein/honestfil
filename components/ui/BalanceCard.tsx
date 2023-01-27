@@ -20,7 +20,7 @@ console.log(data?.formatted);
                 </HStack>
                <VectorIcon />
             </HStack>
-            <Text fontWeight={600} fontSize={'18px'} lineHeight={'26px'} color={'white'}>$ {Number(data?.formatted).toFixed(2)}  {data?.symbol} </Text>
+            <Text fontWeight={600} fontSize={'18px'} lineHeight={'26px'} color={'white'}>$ {Number(data?.formatted).toFixed(2)} FIL {/* data?.symbol */} </Text>
             {/**
             <HStack>
                 <ArrowDownIcon />
