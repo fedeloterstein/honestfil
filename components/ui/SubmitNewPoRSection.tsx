@@ -1,9 +1,11 @@
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay, Select, Stack, Text, useDisclosure, useToast } from '@chakra-ui/react'
 import Image from 'next/image'
 import React, { useState } from 'react'
-import { useContractEvent, useContractWrite } from 'wagmi'
+import { useAccount, useContractEvent, useContractWrite, usePrepareContractWrite } from 'wagmi'
 import { PlusWhiteIcon } from '../icons'
 import contractAbi from '../../contract/abi.json'
+import { useCreateProtocol } from '@/hooks/useCreateProtocol'
+import { useSendNotification } from '@/hooks/useSendNotification'
 
 
 export const SubmitNewPoRSection = () => {
@@ -13,20 +15,17 @@ export const SubmitNewPoRSection = () => {
     const [urlLogo, seturlLogo] = useState('https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579')
     const [addressVault, setaddressVault] = useState('0x57d08d9426570A17b0d754A780Fb6Eac7A056E4b')
     const [urlWebsite, seturlWebsite] = useState('www.testprotocol1.com')
-    const { write } = useContractWrite({
-        mode: 'recklesslyUnprepared',
-        address: '0xDdA45f2CEC52B1a1f2c4AC987530b2734381fA19',
-        abi: contractAbi.abi,
-        functionName: 'registerProtocol',
-        args: [name, category, urlLogo, addressVault, urlWebsite],
-    })
 
+    const {write} = useCreateProtocol({name, category, urlLogo, addressVault, urlWebsite})
+    const {SendPushNotification} = useSendNotification()
+    const {address} = useAccount()
 
     useContractEvent({
         address: '0xDdA45f2CEC52B1a1f2c4AC987530b2734381fA19',
         abi: contractAbi.abi,
         eventName: 'NewProtocol',
         listener(_id, _name, _owner) {
+            SendPushNotification(address, `🤖 ${name} was registered in Honestfil`, `Successful registration ${name} ✅`)
             onOpen()
         },
     })
