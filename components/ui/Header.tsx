@@ -34,8 +34,8 @@ export const Header = () => {
                 </ModalContent>
             </Modal>
     
-    <HStack justifyContent={'space-between'} p={5} w={'100%'}>
-      <Stack >
+    <HStack justifyContent={'space-between'} p={5} w={'100%'} flexDirection={['column-reverse','column-reverse', 'row']}>
+      <Stack display={['none','none', 'flex']}>
         <Heading fontWeight={700} fontSize={'30px'} lineHeight={'38px'} color={'#4C4C66'}>Dashboard FIL Reserves</Heading>
         <Text fontWeight={400} fontSize={'13px'} lineHeight={'16px'} color={'#6F6C99'} >Real-time data of the reserves of Filecoin on decentralized finance (DeFi) protocols or dapps.</Text>
       </Stack>
