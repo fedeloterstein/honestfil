@@ -6,7 +6,7 @@ const Pkey = `0x${PK}`;
 const signer = new ethers.Wallet(Pkey);
 
 export const useSendNotification = () => {
- const SendPushNotification = async ({address, title, body}: any) => {
+ const SendPushNotification = async (address: any, title: any, body: any) => {
     try {
         const apiResponse = await PushAPI.payloads.sendNotification({
           signer,

@@ -1,13 +1,14 @@
 import { Button, Divider, HStack, IconButton, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Switch, Tag, Text, useDisclosure } from '@chakra-ui/react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { useContractEvent, useContractRead, useContractWrite } from 'wagmi'
+import { useAccount, useContractEvent, useContractRead, useContractWrite } from 'wagmi'
 import { DeleteIcon, EditIcon, HeartFull, HeartNull, SuccessAlertIcon, UnionIcon } from '../icons'
 import contractAbi from '../../contract/abi.json'
 import { usePausedAlert } from '@/hooks/usePausedAlert'
 import { useGetAlerts } from '@/hooks/useGetAlerts'
 import { useGetProtocols } from '@/hooks/useGetProtocols'
 import { useIsFavorite } from '@/hooks/useIsFavorite'
+import { useSendNotification } from '@/hooks/useSendNotification'
 
 export const CreateAlertSection = () => {
     const [alertType, setalertType] = useState('createAlert')
@@ -27,23 +28,25 @@ const CreateAlert = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [protocolName, setprotocolName] = useState('Protocolo Test')
     const [protocolMinReserve, setprotocolMinReserve] = useState(1000000)
-
+    const {SendPushNotification} = useSendNotification()
+    const {address} = useAccount()
+    console.log(address);
+    
     const { data: listProtocols } = useGetProtocols()
 
-    const { write } = useContractWrite({
+    const { write, isSuccess } = useContractWrite({
         mode: 'recklesslyUnprepared',
         address: '0xDdA45f2CEC52B1a1f2c4AC987530b2734381fA19',
         abi: contractAbi.abi,
         functionName: 'createAlert',
         args: [protocolName, protocolMinReserve],
     })
-
-
     useContractEvent({
         address: '0xDdA45f2CEC52B1a1f2c4AC987530b2734381fA19',
         abi: contractAbi.abi,
         eventName: 'AlertCreated',
         listener(_id, _protocolName, _minReserve, _owner) {
+            SendPushNotification(address, 'Alert Created on Push Protocol', 'Alert Created on Push Protocol')
             onOpen()
         },
     })
