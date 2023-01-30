@@ -107,13 +107,16 @@ const MyAlerts = () => {
         <>
             {data && data.map((alert: any) => (
                 <HStack width={'100%'} justify={'space-between'} key={alert.id.toNumber()}>
-                    <Tag height={'43px'} color='white' borderRadius={'50px'} minWidth={'106px'} p={'0px 20px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>{alert.protocolName}</Tag>
+                    <Tag height={'29px'} color='white' borderRadius={'50px'} minWidth={'88px'} p={'0px 20px'} bgGradient='linear(to-r, rgba(18, 127, 201, 1), rgba(18, 201, 157, 1))' justifyContent={'center'}>{alert.protocolName}</Tag>
+                    <Stack align={'center'}>
                     <HStack gap={1}>
                         <IconButton onClick={() => setalertSlect(alert.id.toNumber())} aria-label='favorite' icon={!alert.isFavorite ? <HeartNull /> : <HeartFull />} variant={'ghost'} />
                         <EditIcon />
                         <DeleteIcon />
                         <Switch onChange={() => pausedAlert?.(alert.id)} size='md' defaultChecked={alert.isActive} />
                     </HStack>
+                    <Text fontWeight={600} fontSize={'12px'}>Limit ${alert.minReserve.toNumber()}</Text>
+                    </Stack>
                 </HStack>
             ))}
         </>
