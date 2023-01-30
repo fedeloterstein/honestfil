@@ -21,6 +21,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Container,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -79,7 +80,7 @@ export default function Layout({
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} header={header} />
       <Box bg={'white'} ml={{ base: 0, md: 60 }} p="4">
-        { !isConnected ? (<Landing />) :  children}
+        { !isConnected ? (<Landing />) : <Container maxW={'container.xl'}>{children}</Container> }
       </Box>
     </Box>
   );

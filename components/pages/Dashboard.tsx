@@ -6,9 +6,9 @@ import { FavotitesSection, BalanceCard, CreateAlertSection, FileCoinCard, Submit
 export const Dashboard = () => {
   return (
     <Stack>
-      <HStack pt={'38px'} align={'flex-start'}>
+      <HStack pt={'38px'} align={'flex-start'} flexDirection={['column-reverse','column-reverse', 'row']}>
         <Stack>
-          <HStack pb={'24px'} gap={'35px'}>
+          <HStack pb={'24px'} gap={'35px'} >
             <BalanceCard />
             <FileCoinCard />
           </HStack>
