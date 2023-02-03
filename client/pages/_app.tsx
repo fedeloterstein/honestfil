@@ -5,16 +5,33 @@ import {
   getDefaultWallets,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
-import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { Chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, polygonMumbai } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
+const fevmChain: Chain = {
+  id: 3141,
+  name: 'Filecoin - Hyperspace testnet',
+  network: 'Filecoin - Hyperspace testnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Filecoin - Hyperspace testnet',
+    symbol: 'tFIL',
+  },
+  rpcUrls: {
+    default: {http: ['https://api.hyperspace.node.glif.io/rpc/v1']},
+    public:  {http: ['https://api.hyperspace.node.glif.io/rpc/v1']},
+  },
+  testnet: true,
+}
+
 const { chains, provider } = configureChains(
-  [polygonMumbai],
+  [fevmChain],
   [
     publicProvider()
   ]
 );
+
 
 const { connectors } = getDefaultWallets({
   appName: 'My RainbowKit App',

@@ -21,7 +21,7 @@ export const SubmitNewPoRSection = () => {
     const {address} = useAccount()
 
     useContractEvent({
-        address: '0xDdA45f2CEC52B1a1f2c4AC987530b2734381fA19',
+        address: '0x968f1a4e48E2Db564f461EEb99a38bA95b83a4c6',
         abi: contractAbi.abi,
         eventName: 'NewProtocol',
         listener(_id, _name, _owner) {
