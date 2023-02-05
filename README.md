@@ -1,5 +1,5 @@
 # HonestFIL 🕵️
-Project built in the ETHGlobal FEVM Hackathon
+Project built in the ETHGlobal FVM SPACE WARP Hackathon
 
 ## 👤 Author
 - Federico Loterstein ([@fedeloters](https://twitter.com/fedeloters))
