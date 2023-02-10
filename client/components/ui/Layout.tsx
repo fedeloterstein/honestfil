@@ -39,6 +39,7 @@ import { DashboardIcon, HonestfilLogo } from '../icons';
 import { useAccount } from 'wagmi';
 import { useRouter } from 'next/router';
 import { Landing } from '../pages';
+import { FaqsIcon } from '../icons/FaqsIcon';
 
 interface LinkItemProps {
   name: string;
@@ -107,10 +108,13 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} href={'/'}>
           {link.name}
         </NavItem>
       ))}
+       <NavItem key={'FeedBack'} icon={FaqsIcon} href={'https://tally.so/r/wQo6Y8'}>
+       Feedback
+        </NavItem>
     </Box>
   );
 };
@@ -118,10 +122,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
+  href: string
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, href, ...rest }: NavItemProps) => {
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link href={href} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"
